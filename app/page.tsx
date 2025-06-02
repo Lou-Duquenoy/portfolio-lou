@@ -20,10 +20,6 @@ import {
 import { motion } from "framer-motion";
 
 export default function Home() {
-  const [isScrollingBottom, setIsScrollingBottom] = useState(false);
-  const [isScrollingTop, setIsScrollingTop] = useState(false);
-  const [isScrollingAbout, setIsScrollingAbout] = useState(false);
-
   const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -88,19 +84,6 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
-
-    setIsScrollingBottom(true); // Début du défilement
-    const offsetTop = contactElement.offsetTop; // Position de l'élément
-    const scrollDuration = 600; // Durée du défilement (en ms)
-
-    window.scrollTo({
-      top: offsetTop,
-      behavior: "smooth",
-    });
-
-    setTimeout(() => {
-      setIsScrollingBottom(false);
-    }, scrollDuration);
   };
   const handleScrollToAbout = () => {
     const aboutElement = document.getElementById("about");
@@ -109,19 +92,6 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
-
-    setIsScrollingAbout(true); // Début du défilement
-    const offsetTop = aboutElement.offsetTop; // Position de l'élément
-    const scrollDuration = 600; // Durée du défilement (en ms)
-
-    window.scrollTo({
-      top: offsetTop,
-      behavior: "smooth",
-    });
-
-    setTimeout(() => {
-      setIsScrollingAbout(false);
-    }, scrollDuration);
   };
 
   const handleScrollToProfile = () => {
@@ -132,7 +102,6 @@ export default function Home() {
       return;
     }
 
-    setIsScrollingTop(true); // Début du défilement
     const offsetTop = profileElement.offsetTop; // Position de l'élément
     const scrollDuration = 600; // Durée du défilement (en ms)
 
@@ -140,10 +109,6 @@ export default function Home() {
       top: offsetTop,
       behavior: "smooth",
     });
-
-    setTimeout(() => {
-      setIsScrollingTop(false);
-    }, scrollDuration);
   };
 
   const buttonVariants = {
@@ -231,12 +196,13 @@ export default function Home() {
             <h2>About Me</h2>
             <p>
               I am a passionate Full Stack Developer with a strong foundation in
-              web technologies, holding a Bachelor&apos;s Degree in Web Development
-              and an MBA in Full Stack Development from MyDigitalSchool. I enjoy
-              building user-friendly and efficient digital solutions, thrive in
-              collaborative environments, and am driven by a continuous desire
-              to learn and take on new technical challenges. My goal is to
-              create impactful applications that make a difference.
+              web technologies, holding a Bachelor&apos;s Degree in Web
+              Development and an MBA in Full Stack Development from
+              MyDigitalSchool. I enjoy building user-friendly and efficient
+              digital solutions, thrive in collaborative environments, and am
+              driven by a continuous desire to learn and take on new technical
+              challenges. My goal is to create impactful applications that make
+              a difference.
             </p>
           </div>
         </div>
