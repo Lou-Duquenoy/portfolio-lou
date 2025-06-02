@@ -14,9 +14,6 @@ import {
   SiPhp,
   SiAngular,
   SiKotlin,
-  SiMysql,
-  SiMongodb,
-  SiPostgresql,
   SiDocker,
   SiGit,
 } from "react-icons/si";
@@ -175,7 +172,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div>
-              <p className={styles.name}>I'm Lou Duquenoy</p>
+              <p className={styles.name}>I&apos;m Lou Duquenoy</p>
             </div>
             <div>
               <div className={styles.social}>
@@ -234,7 +231,7 @@ export default function Home() {
             <h2>About Me</h2>
             <p>
               I am a passionate Full Stack Developer with a strong foundation in
-              web technologies, holding a Bachelor's Degree in Web Development
+              web technologies, holding a Bachelor&apos;s Degree in Web Development
               and an MBA in Full Stack Development from MyDigitalSchool. I enjoy
               building user-friendly and efficient digital solutions, thrive in
               collaborative environments, and am driven by a continuous desire
