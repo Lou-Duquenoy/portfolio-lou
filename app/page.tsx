@@ -101,14 +101,6 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
-
-    const offsetTop = profileElement.offsetTop; // Position de l'élément
-    const scrollDuration = 600; // Durée du défilement (en ms)
-
-    window.scrollTo({
-      top: offsetTop,
-      behavior: "smooth",
-    });
   };
 
   const buttonVariants = {
