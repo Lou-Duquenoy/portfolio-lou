@@ -257,11 +257,11 @@
 }
 
 .containerBottomProject{
-    margin-left: 0.8rem;
-    margin-right: 0.8rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .project p{
@@ -510,6 +510,13 @@
     margin-right:0;
     margin-bottom: 1rem;
   }
+  .containerBottomProject{
+    margin-left:0;
+    margin-right:0;
+  }
+  .project p{
+    font-size:0.9rem;
+  }
 }
 
 .skills{
@@ -556,6 +563,8 @@
 }
 
 .skillsList li {
+  display: flex;
+  align-items: center;
   margin-bottom: 0.75rem;
   font-size: 1.5rem;
   color: #555;
@@ -571,6 +580,10 @@
   font-size: 1.2rem;
   line-height: 1;
 }
+.skillsList li p{
+  font-size: 1.2rem;
+}
+
 .status{
   color: white;
   font-size: 1rem;

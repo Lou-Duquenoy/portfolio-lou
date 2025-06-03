@@ -84,6 +84,7 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
+    contactElement.scrollIntoView({ behavior: "smooth" })
   };
   const handleScrollToAbout = () => {
     const aboutElement = document.getElementById("about");
@@ -92,6 +93,7 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
+    aboutElement.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleScrollToProfile = () => {
@@ -101,6 +103,7 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
+    profileElement.scrollIntoView({ behavior: "smooth" });
   };
 
   const buttonVariants = {
@@ -201,7 +204,7 @@ export default function Home() {
       </div>
 
       <div className={styles.projects}>
-        <h2>Expériences</h2>
+        <h2>Experiences</h2>
 
         <div className={styles.projectList}>
           <div className={styles.project + " " + styles.projectLeft}>
@@ -242,7 +245,7 @@ export default function Home() {
             >
               <div className={styles.descriptif}>
                 <p>
-                  <strong>Makewaves – Refonte plateforme bus magique</strong>
+                  <strong>Makewaves – Refonte plateforme Bus Magique</strong>
                   <br />
                   <em>Apprenti Développeur Front End Junior - 2020-2021</em>
                   <br />
@@ -288,7 +291,7 @@ export default function Home() {
             >
               <div className={styles.descriptif}>
                 <p>
-                  <strong>Ozalentour – Application de paiement</strong>
+                  <strong>Ozalentour – Développement appli de paiement</strong>
                   <br />
                   <em>Développeur Full Stack Junior – 2023-2025</em>
                   <br />
@@ -309,12 +312,15 @@ export default function Home() {
             <ul className={styles.skillsList}>
               <li>
                 <SiNextdotjs style={{ marginRight: "0.5rem" }} />
+                <p>Next.js</p>
               </li>
               <li>
                 <SiReact style={{ marginRight: "0.5rem" }} />
+                <p>React.js</p>
               </li>
               <li>
                 <SiAngular style={{ marginRight: "0.5rem" }} />
+                <p>Angular</p>
               </li>
             </ul>
           </div>
@@ -323,12 +329,15 @@ export default function Home() {
             <ul className={styles.skillsList}>
               <li>
                 <SiNodedotjs style={{ marginRight: "0.5rem" }} />
+                <p>Node.js</p>
               </li>
               <li>
                 <SiSymfony style={{ marginRight: "0.5rem" }} />
+                <p>Symfony</p>
               </li>
               <li>
                 <SiPhp style={{ marginRight: "0.5rem" }} />
+                <p>PHP</p>
               </li>
             </ul>
           </div>
@@ -337,12 +346,15 @@ export default function Home() {
             <ul className={styles.skillsList}>
               <li>
                 <SiReact style={{ marginRight: "0.5rem" }} />
+                <p>React Native</p>
               </li>
               <li>
                 <SiFlutter style={{ marginRight: "0.5rem" }} />
+                <p>Flutter</p>
               </li>
               <li>
                 <SiKotlin style={{ marginRight: "0.5rem" }} />
+                <p>Kotlin</p>
               </li>
             </ul>
           </div>
@@ -351,12 +363,15 @@ export default function Home() {
             <ul className={styles.skillsList}>
               <li>
                 <SiDocker style={{ marginRight: "0.5rem" }} />
+                <p>Docker</p>
               </li>
               <li>
                 <SiGit style={{ marginRight: "0.5rem" }} />
+                <p>Git</p>
               </li>
               <li>
                 <SiGithub style={{ marginRight: "0.5rem" }} />
+                <p>Github</p>
               </li>
             </ul>
           </div>
@@ -458,7 +473,7 @@ export default function Home() {
         </div>
 
         <div className={styles.copyright}>
-          <p>© Copyright 2025 John Doe</p>
+          <p>© Copyright 2025 Lou Duquenoy</p>
         </div>
       </div>
     </div>
