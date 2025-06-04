@@ -84,7 +84,7 @@ export default function Home() {
       console.warn("Element with id 'contact' not found.");
       return;
     }
-    contactElement.scrollIntoView({ behavior: "smooth" })
+    contactElement.scrollIntoView({ behavior: "smooth" });
   };
   const handleScrollToAbout = () => {
     const aboutElement = document.getElementById("about");
@@ -139,11 +139,14 @@ export default function Home() {
                 <a target="_blank" href="https://github.com/Lou-Duquenoy">
                   <SiGithub />
                 </a>
-                <a target="_blank" href="https://github.com/Lou-Duquenoy">
+                <a
+                  target="_blank"
+                  href="https://www.linkedin.com/in/lou-duquenoy-0b68a3168/"
+                >
                   <SiLinkedin />
                 </a>
-                <a>
-                  <SiTelegram />
+                <a target="_blank" href="mailto:lou.duquenoy@gmail.com">
+                  <SiGmail />
                 </a>
               </div>
               <div className={styles.buttonContainer}>
@@ -458,20 +461,6 @@ export default function Home() {
       </div>
 
       <div className={styles.footer}>
-        <div className={styles.social}>
-          <a>
-            <SiGithub />
-          </a>
-
-          <a>
-            <SiLinkedin />
-          </a>
-
-          <a>
-            <SiTelegram />
-          </a>
-        </div>
-
         <div className={styles.copyright}>
           <p>© Copyright 2025 Lou Duquenoy</p>
         </div>
