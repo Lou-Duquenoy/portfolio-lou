@@ -5,7 +5,6 @@ import {
   SiGithub,
   SiGmail,
   SiLinkedin,
-  SiTelegram,
   SiNextdotjs,
   SiReact,
   SiNodedotjs,
