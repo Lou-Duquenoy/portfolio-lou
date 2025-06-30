@@ -232,9 +232,9 @@ export default function Home() {
                 }}
               >
                 <p className={styles.overlayText}>
-                  <strong>Makewaves – Refonte plateforme bus magique</strong>
+                  <strong>Makewaves – Bus Magique Platform Redesign</strong>
                   <br />
-                  <em>Apprenti Développeur Front End Junior – 2020-2021</em>
+                  <em>Junior Front End Developer Apprentice – 2020-2021</em>
                   <br />
                 </p>
               </motion.div>
@@ -247,9 +247,9 @@ export default function Home() {
             >
               <div className={styles.descriptif}>
                 <p>
-                  <strong>Makewaves – Refonte plateforme Bus Magique</strong>
+                  <strong>Makewaves – Bus Magique Platform Redesign</strong>
                   <br />
-                  <em>Apprenti Développeur Front End Junior - 2020-2021</em>
+                  <em>Junior Front End Developer Apprentice - 2020-2021</em>
                   <br />
                 </p>
               </div>
@@ -277,11 +277,11 @@ export default function Home() {
                 }}
               >
                 <p className={styles.overlayText}>
-                  <strong>Ozalentour – Application de paiement</strong>
+                  <strong>Ozalentour – Payment Application</strong>
                   <br />
-                  <em>Développeur Full Stack Junior – 2023-2025</em>
+                  <em>Junior Full Stack Developer – 2023-2025</em>
                   <br />
-                  <em>Apprenti Développeur Full Stack Junior – 2022-2023</em>
+                  <em>Junior Full Stack Developer Apprentice – 2022-2023</em>
                   <br />
                 </p>
               </motion.div>
@@ -293,11 +293,11 @@ export default function Home() {
             >
               <div className={styles.descriptif}>
                 <p>
-                  <strong>Ozalentour – Développement appli de paiement</strong>
+                  <strong>Ozalentour – Payment Application</strong>
                   <br />
-                  <em>Développeur Full Stack Junior – 2023-2025</em>
+                  <em>Junior Full Stack Developer – 2023-2025</em>
                   <br />
-                  <em>Apprenti Développeur Full Stack Junior – 2022-2023</em>
+                  <em>Junior Full Stack Developer Apprentice – 2022-2023</em>
                   <br />
                 </p>
               </div>
