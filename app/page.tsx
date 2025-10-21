@@ -10,12 +10,12 @@ import {
   SiNodedotjs,
   SiSymfony,
   SiFlutter,
-  SiPhp,
   SiAngular,
   SiKotlin,
   SiDocker,
   SiGit,
 } from "react-icons/si";
+import { FaCoffee } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -338,8 +338,8 @@ export default function Home() {
                 <p>Symfony</p>
               </li>
               <li>
-                <SiPhp style={{ marginRight: "0.5rem" }} />
-                <p>PHP</p>
+                <FaCoffee style={{ marginRight: "0.5rem" }} />
+                <p>Java</p>
               </li>
             </ul>
           </div>
