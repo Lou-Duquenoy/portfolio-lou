@@ -1,6 +1,7 @@
 "use client";
+
 import styles from "../styles/Index.module.css";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   SiGithub,
   SiGmail,
@@ -12,11 +13,21 @@ import {
   SiFlutter,
   SiAngular,
   SiKotlin,
-  SiDocker,
-  SiGit,
 } from "react-icons/si";
 import { FaCoffee } from "react-icons/fa";
 import { motion } from "framer-motion";
+
+type Experience = {
+  title: string;
+  role: string;
+  period: string;
+  objective: string; // ✅ Objectif du projet
+  tech: string[];
+  image: string;
+  alt: string;
+  liveUrl?: string;
+  details?: string;
+};
 
 export default function Home() {
   const [status, setStatus] = useState("");
@@ -24,38 +35,78 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const experiences: Experience[] = useMemo(
+    () => [
+      {
+        title: "Ozalentour – Payment Application",
+        role: "Junior Full Stack Developer",
+        period: "2022 → 2025",
+        objective:
+          "Développer et maintenir une application web et mobile de paiement sécurisée, en améliorant en continu l’expérience utilisateur.",        
+        tech: ["Next.js", "React", "Node.js", "Symfony", "Expo", "Docker", "GCP"],
+        image: "oza.png",
+        alt: "Aperçu de l’application Ozalentour",
+        liveUrl: "https://fr.ozapay.me/",
+        details:
+          "Projet full-stack web + mobile. J’ai travaillé sur les features, la maintenance et l’amélioration continue.",
+      },
+      {
+        title: "Makewaves – Bus Magique Platform Redesign",
+        role: "Junior Front End Developer Apprentice",
+        period: "2020 → 2021",
+        objective:
+          "Refondre le site web du « Bus Magique », lieu convivial et participatif ouvert à tous, afin d’améliorer la navigation et l’accès aux informations.",
+        tech: ["HTML/CSS", "JS", "Integration"],
+        image: "busmagique.png",
+        alt: "Aperçu du site Bus Magique",
+        liveUrl: "https://lebusmagiquelille.fr/",
+        details:
+          "Refonte front orientée UX : parcours, formulaires, pages clés et corrections itératives.",
+      },
+    ],
+    []
+  );
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.04,
+      transition: { duration: 0.2, ease: "easeInOut" },
+    },
+    tap: { scale: 0.98 },
+  };
+
+  const scrollToId = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth" });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 🔍 Vérification des champs vides
     if (!name || !email || !message) {
       setStatus("Veuillez remplir tous les champs.");
       return;
     }
 
-    // 🔍 Validation de l’email (simple mais efficace)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setStatus("Veuillez entrer une adresse email valide.");
       return;
     }
 
-    // ✅ Construction des données à envoyer
-    const formData = {
-      access_key: "a43566b8-e93a-4b80-917b-3450c25b07d3", // ← remplace par la tienne
-      name,
-      email,
-      message,
-    };
+    
+
+    
+
+    const formData = { access_key: "a43566b8-e93a-4b80-917b-3450c25b07d3", name, email, message };
 
     try {
       setStatus("Envoi en cours...");
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -76,394 +127,418 @@ export default function Home() {
     }
   };
 
-  const handleScrollToContact = () => {
-    const contactElement = document.getElementById("contact");
-
-    if (!contactElement) {
-      console.warn("Element with id 'contact' not found.");
-      return;
-    }
-    contactElement.scrollIntoView({ behavior: "smooth" });
-  };
-  const handleScrollToAbout = () => {
-    const aboutElement = document.getElementById("about");
-
-    if (!aboutElement) {
-      console.warn("Element with id 'contact' not found.");
-      return;
-    }
-    aboutElement.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleScrollToProfile = () => {
-    const profileElement = document.getElementById("profile");
-
-    if (!profileElement) {
-      console.warn("Element with id 'contact' not found.");
-      return;
-    }
-    profileElement.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const buttonVariants = {
-    hover: {
-      scale: 1.1,
-      backgroundColor: "#31bbd8",
-      color: "#171717",
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-    tap: {
-      scale: 0.95,
-    },
-  };
   return (
     <div className={styles.bigContainer}>
-      <div>
-        <div className={styles.barTop} />
-        <div id="profile" className={styles.profileSectionBackground}>
-          <motion.div
-            className={styles.profileSection}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+      {/* NAVBAR */}
+      <header className={styles.navbar}>
+        <div className={styles.navInner}>
+          <button
+            className={styles.brand}
+            onClick={() => scrollToId("profile")}
+            aria-label="Retour en haut"
           >
-            <div>
-              <p className={styles.name}>I&apos;m Lou Duquenoy</p>
+            Lou Duquenoy
+          </button>
+
+          <nav className={styles.navLinks} aria-label="Navigation principale">
+            <button onClick={() => scrollToId("about")}>About</button>
+            <button onClick={() => scrollToId("experiences")}>Experiences</button>
+            <button onClick={() => scrollToId("skills")}>Skills</button>
+            <button onClick={() => scrollToId("contact")}>Contact</button>
+          </nav>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section id="profile" className={styles.hero}>
+        <div className={styles.heroOverlay} />
+        <motion.div
+          className={styles.heroContent}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+        >
+          <p className={styles.kicker}>Full-Stack Developer • Mainframe</p>
+          <h1 className={styles.name}>Lou Duquenoy</h1>
+          <p className={styles.tagline}>
+            Développeur full-stack également formé aux environnements mainframe avec COBOL batch sur z/OS et gestion de données via VSAM et DB2/SQL. Je recherche des opportunités me permettant d’évoluer aussi bien en Full Stack que sur des systèmes Mainframe.
+          </p>
+
+          <div className={styles.social}>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://github.com/Lou-Duquenoy"
+              aria-label="GitHub"
+            >
+              <SiGithub />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.linkedin.com/in/lou-duquenoy-0b68a3168/"
+              aria-label="LinkedIn"
+            >
+              <SiLinkedin />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="mailto:lou.duquenoy@gmail.com"
+              aria-label="Email"
+            >
+              <SiGmail />
+            </a>
+          </div>
+
+          <div className={styles.ctaRow}>
+            <motion.button
+              className={`${styles.cta} ${styles.ctaPrimary}`}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              onClick={() => scrollToId("experiences")}
+            >
+              View projects
+            </motion.button>
+
+            <motion.a
+              href="/DUQUENOY_Lou.pdf"
+              download
+              className={`${styles.cta} ${styles.ctaGhost}`}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+            >
+              Resume
+            </motion.a>
+
+            <motion.button
+              className={`${styles.cta} ${styles.ctaGhost}`}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              onClick={() => scrollToId("contact")}
+            >
+              Contact
+            </motion.button>
+          </div>
+
+          <button
+            className={styles.scrollHint}
+            onClick={() => scrollToId("about")}
+            aria-label="Descendre vers About"
+          >
+            <span className={styles.scrollDot} />
+          </button>
+        </motion.div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className={styles.sectionDark}>
+        <div className={styles.container}>
+          <div className={styles.aboutGrid}>
+            <div className={styles.aboutLeft}>
+              <img
+                className={styles.avatar}
+                src="avatar.jpg"
+                alt="Photo de Lou Duquenoy"
+              />
+              <div className={styles.quickFacts}>
+                <div className={styles.factCard}>
+                  <p className={styles.factTitle}>Focus</p>
+                  <p className={styles.factValue}>Web • Mobile • Mainframe</p>
+                </div>
+                <div className={styles.factCard}>
+                  <p className={styles.factTitle}>Stack</p>
+                  <p className={styles.factValue}>
+                    Next • Node • React Native • Symfony • COBOL
+                  </p>
+                </div>
+                <div className={styles.factCard}>
+                  <p className={styles.factTitle}>Mindset</p>
+                  <p className={styles.factValue}>Produit • Team • Learn</p>
+                </div>
+              </div>
             </div>
+
+            <div className={styles.aboutRight}>
+              <h2 className={styles.sectionTitle}>About</h2>
+              <p className={styles.text}>
+                Développeur Full Stack, j’ai construit et maintenu des
+                applications web et mobile (front-end, back-end, back-office,
+                déploiement). En complément, j’ai suivi une formation Grands
+                Systèmes orientée mainframe : développement COBOL batch sur z/OS,
+                traitement de fichiers séquentiels/VSAM et accès DB2/SQL.
+                Aujourd’hui, je recherche des opportunités Full Stack ou
+                Mainframe, avec une préférence pour les contextes où la fiabilité,
+                la robustesse et la qualité des traitements sont essentielles.
+              </p>
+
+              <div className={styles.highlights}>
+                <div className={styles.highlightCard}>
+                  <p className={styles.highlightTitle}>Ce que j’apporte</p>
+                  <ul className={styles.bullets}>
+                    <li>
+                      Une approche claire : comprendre le besoin → itérer →
+                      livrer.
+                    </li>
+                    <li>Qualité : lisibilité, tests et robustesse.</li>
+                    <li>Communication : collaboration dev / produit / métier.</li>
+                  </ul>
+                </div>
+
+                <div className={styles.highlightCard}>
+                  <p className={styles.highlightTitle}>Objectif</p>
+                  <p className={styles.textSmall}>
+                    Rejoindre une équipe où je peux contribuer à un produit
+                    concret (web/mobile), en continuant à monter en compétence
+                    sur l’architecture, la performance et le devops.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EXPERIENCES */}
+      <section id="experiences" className={styles.section}>
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitleLight}>Experiences</h2>
+
+          <div className={styles.cardGrid}>
+            {experiences.map((exp) => (
+              <article key={exp.title} className={styles.card}>
+                <div className={styles.cardMedia}>
+                  <img
+                    className={styles.cardImg}
+                    src={exp.image}
+                    alt={exp.alt}
+                  />
+                </div>
+
+                <div className={styles.cardBody}>
+                  <div className={styles.cardTop}>
+                    <div>
+                      <h3 className={styles.cardTitle}>{exp.title}</h3>
+                      <p className={styles.cardMeta}>
+                        {exp.role} •{" "}
+                        <span className={styles.muted}>{exp.period}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* ✅ Objectif */}
+                  <div className={styles.cardBlock}>
+                    <p className={styles.cardLabel}>Objectif</p>
+                    <p className={styles.cardObjective}>{exp.objective}</p>
+                  </div>
+             
+                  {/* ✅ bottom wrapper pour badges + actions en bas */}
+                  <div className={styles.cardBottom}>
+                    <div className={styles.techRow} aria-label="Technologies">
+                      {exp.tech.map((t) => (
+                        <span key={t} className={styles.badge}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className={styles.cardActions}>
+                      {exp.liveUrl && (
+                        <motion.a
+                          className={`${styles.smallBtn} ${styles.smallBtnPrimary}`}
+                          href={exp.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          variants={buttonVariants}
+                          whileHover="hover"
+                          whileTap="tap"
+                        >
+                          Live
+                        </motion.a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SKILLS */}
+      <section id="skills" className={styles.sectionLight}>
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Skills</h2>
+
+          <div className={styles.skillsGrid}>
+            <div className={styles.skillsBox}>
+              <p className={styles.skillsTitle}>Mainframe</p>
+              <ul className={styles.skillsList}>
+                <li>
+                  <span className={styles.skillDot} /> <span>COBOL (batch)</span>
+                </li>
+                <li>
+                  <span className={styles.skillDot} /> <span>z/OS</span>
+                </li>
+                <li>
+                  <span className={styles.skillDot} />{" "}
+                  <span>VSAM / fichiers séquentiels</span>
+                </li>
+                <li>
+                  <span className={styles.skillDot} /> <span>DB2 / SQL</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.skillsBox}>
+              <p className={styles.skillsTitle}>Frontend</p>
+              <ul className={styles.skillsList}>
+                <li>
+                  <SiNextdotjs /> <span>Next</span>
+                </li>
+                <li>
+                  <SiReact /> <span>React</span>
+                </li>
+                <li>
+                  <SiAngular /> <span>Angular</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.skillsBox}>
+              <p className={styles.skillsTitle}>Backend</p>
+              <ul className={styles.skillsList}>
+                <li>
+                  <SiNodedotjs /> <span>Node.js</span>
+                </li>
+                <li>
+                  <SiSymfony /> <span>Symfony</span>
+                </li>
+                <li>
+                  <FaCoffee /> <span>Java</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.skillsBox}>
+              <p className={styles.skillsTitle}>Mobile</p>
+              <ul className={styles.skillsList}>
+                <li>
+                  <SiReact /> <span>React Native</span>
+                </li>
+                <li>
+                  <SiFlutter /> <span>Flutter</span>
+                </li>
+                <li>
+                  <SiKotlin /> <span>Kotlin</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className={styles.sectionDark}>
+        <div className={styles.container}>
+          <div className={styles.contactHeader}>
             <div>
-              <div className={styles.social}>
-                <a target="_blank" href="https://github.com/Lou-Duquenoy">
-                  <SiGithub />
+              <h2 className={styles.sectionTitle}>Contact</h2>
+              
+            </div>
+          </div>
+
+          <div className={styles.contactGrid}>
+            <div className={styles.formWrapper}>
+              <form onSubmit={handleSubmit} className={styles.contactForm}>
+                <label className={styles.label}>
+                  Name
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    autoComplete="name"
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Email
+                  <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@email.com"
+                    autoComplete="email"
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Message
+                  <textarea
+                    rows={5}
+                    maxLength={600}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Tell me about your project / opportunity…"
+                  />
+                </label>
+
+                {status && <p className={styles.status}>{status}</p>}
+
+                <motion.button
+                  type="submit"
+                  className={styles.submitBtn}
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  Send message
+                </motion.button>
+              </form>
+            </div>
+
+            <aside className={styles.contactAside}>
+              <p className={styles.asideText}>Tu peux aussi me contacter via :</p>
+
+              <div className={styles.socialContact}>
+                <a target="_blank" rel="noreferrer" href="mailto:lou.duquenoy@gmail.com">
+                  <span className={styles.contactIcon}>
+                    <SiGmail />
+                  </span>
+                  <span>lou.duquenoy@gmail.com</span>
                 </a>
+
+                <a target="_blank" rel="noreferrer" href="https://github.com/Lou-Duquenoy">
+                  <span className={styles.contactIcon}>
+                    <SiGithub />
+                  </span>
+                  <span>Lou-Duquenoy</span>
+                </a>
+
                 <a
                   target="_blank"
+                  rel="noreferrer"
                   href="https://www.linkedin.com/in/lou-duquenoy-0b68a3168/"
                 >
-                  <SiLinkedin />
+                  <span className={styles.contactIcon}>
+                    <SiLinkedin />
+                  </span>
+                  <span>Lou Duquenoy</span>
                 </a>
-                <a target="_blank" href="mailto:lou.duquenoy@gmail.com">
-                  <SiGmail />
-                </a>
               </div>
-              <div className={styles.buttonContainer}>
-                <motion.a
-                  href="/DUQUENOY_Lou.pdf"
-                  download
-                  className={styles["cta"] + " " + styles["ctaLeft"]}
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  Resume
-                </motion.a>
+            </aside>
+          </div>
 
-                <motion.a
-                  className="interactiveButton"
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleScrollToContact();
-                  }}
-                >
-                  Contact
-                </motion.a>
-              </div>
-            </div>
-          </motion.div>
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              handleScrollToAbout();
-            }}
-            className={styles.arrowContainer}
-          >
-            <div className={styles.arrow}></div>
+          <div className={styles.footer}>
+            <button className={styles.backTop} onClick={() => scrollToId("profile")}>
+              ↑ Back to top
+            </button>
+            <p className={styles.copyright}>© Copyright 2026 Lou Duquenoy</p>
           </div>
         </div>
-      </div>
-      <div id="about" className={styles.about}>
-        <div className={styles.aboutContainer}>
-          <img className={styles.avatar} src="avatar.jpg" />
-          <div>
-            <h2>About Me</h2>
-            <p>
-              I am a passionate Full Stack Developer with a strong foundation in
-              web technologies, holding a Bachelor&apos;s Degree in Web
-              Development and an MBA in Full Stack Development from
-              MyDigitalSchool. I enjoy building user-friendly and efficient
-              digital solutions, thrive in collaborative environments, and am
-              driven by a continuous desire to learn and take on new technical
-              challenges. My goal is to create impactful applications that make
-              a difference.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.projects}>
-        <h2>Experiences</h2>
-
-        <div className={styles.projectList}>
-          <div className={styles.project + " " + styles.projectLeft}>
-            <motion.div
-              className={styles.projectImageWrapper}
-              whileHover="hover"
-              initial="initial"
-              animate="initial"
-            >
-              <img
-                onClick={() =>
-                  window.open("https://lebusmagiquelille.fr/", "_blank")
-                }
-                className={styles.exempleProjects}
-                src="busmagique.png"
-                alt="Aperçu du site Bus Magique"
-              />
-              <motion.div
-                className={styles.imageOverlay}
-                variants={{
-                  initial: { opacity: 0 },
-                  hover: { opacity: 1 },
-                }}
-              >
-                <p className={styles.overlayText}>
-                  <strong>Makewaves – Bus Magique Platform Redesign</strong>
-                  <br />
-                  <em>Junior Front End Developer Apprentice – 2020-2021</em>
-                  <br />
-                </p>
-              </motion.div>
-            </motion.div>
-            <div
-              onClick={() =>
-                window.open("https://lebusmagiquelille.fr/", "_blank")
-              }
-              className={styles.containerBottomProject}
-            >
-              <div className={styles.descriptif}>
-                <p>
-                  <strong>Makewaves – Bus Magique Platform Redesign</strong>
-                  <br />
-                  <em>Junior Front End Developer Apprentice - 2020-2021</em>
-                  <br />
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.project}>
-            <motion.div
-              className={styles.projectImageWrapper}
-              whileHover="hover"
-              initial="initial"
-              animate="initial"
-            >
-              <img
-                onClick={() => window.open("https://fr.ozapay.me/", "_blank")}
-                className={styles.exempleProjects}
-                src="oza.png"
-                alt="Aperçu de l’application Ozalentour"
-              />
-              <motion.div
-                className={styles.imageOverlay}
-                variants={{
-                  initial: { opacity: 0 },
-                  hover: { opacity: 1 },
-                }}
-              >
-                <p className={styles.overlayText}>
-                  <strong>Ozalentour – Payment Application</strong>
-                  <br />
-                  <em>Junior Full Stack Developer – 2023-2025</em>
-                  <br />
-                  <em>Junior Full Stack Developer Apprentice – 2022-2023</em>
-                  <br />
-                </p>
-              </motion.div>
-            </motion.div>
-
-            <div
-              onClick={() => window.open("https://fr.ozapay.me/", "_blank")}
-              className={styles.containerBottomProject}
-            >
-              <div className={styles.descriptif}>
-                <p>
-                  <strong>Ozalentour – Payment Application</strong>
-                  <br />
-                  <em>Junior Full Stack Developer – 2023-2025</em>
-                  <br />
-                  <em>Junior Full Stack Developer Apprentice – 2022-2023</em>
-                  <br />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.skills}>
-        <h2>Skills</h2>
-        <div className={styles.skillsBoxContainer}>
-          <div className={styles.skillsBox}>
-            <p className={styles.skillsTitle}>Frontend development</p>
-            <ul className={styles.skillsList}>
-              <li>
-                <SiNextdotjs style={{ marginRight: "0.5rem" }} />
-                <p>Next.js</p>
-              </li>
-              <li>
-                <SiReact style={{ marginRight: "0.5rem" }} />
-                <p>React.js</p>
-              </li>
-              <li>
-                <SiAngular style={{ marginRight: "0.5rem" }} />
-                <p>Angular</p>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.skillsBox}>
-            <h3 className={styles.skillsTitle}>Backend development</h3>
-            <ul className={styles.skillsList}>
-              <li>
-                <SiNodedotjs style={{ marginRight: "0.5rem" }} />
-                <p>Node.js</p>
-              </li>
-              <li>
-                <SiSymfony style={{ marginRight: "0.5rem" }} />
-                <p>Symfony</p>
-              </li>
-              <li>
-                <FaCoffee style={{ marginRight: "0.5rem" }} />
-                <p>Java</p>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.skillsBox}>
-            <h3 className={styles.skillsTitle}>Mobile development</h3>
-            <ul className={styles.skillsList}>
-              <li>
-                <SiReact style={{ marginRight: "0.5rem" }} />
-                <p>React Native</p>
-              </li>
-              <li>
-                <SiFlutter style={{ marginRight: "0.5rem" }} />
-                <p>Flutter</p>
-              </li>
-              <li>
-                <SiKotlin style={{ marginRight: "0.5rem" }} />
-                <p>Kotlin</p>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.skillsBox}>
-            <h3 className={styles.skillsTitle}>Tools and DevOps</h3>
-            <ul className={styles.skillsList}>
-              <li>
-                <SiDocker style={{ marginRight: "0.5rem" }} />
-                <p>Docker</p>
-              </li>
-              <li>
-                <SiGit style={{ marginRight: "0.5rem" }} />
-                <p>Git</p>
-              </li>
-              <li>
-                <SiGithub style={{ marginRight: "0.5rem" }} />
-                <p>Github</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div id="contact" className={styles.contact}>
-        <div className={styles.contactContainer}>
-          <img className={styles.mailIcon} src="email.svg" />
-          <p>Get in touch.</p>
-        </div>
-        <div className={styles.formContainer}>
-          <div className={styles.formWrapper}>
-            <form onSubmit={handleSubmit} className={styles.contactForm}>
-              <input
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <textarea
-                rows={5}
-                maxLength={200}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-              {status && <p className={styles.status}>{status}</p>}
-              <div>
-                <button>Send message</button>
-              </div>
-            </form>
-          </div>
-          <div className={styles.socialWrapper}>
-            <p>
-              Here is a good spot for a message to your readers to let them know
-              how best to reach out to you.
-            </p>
-            <div className={styles.socialContact}>
-              <a target="_blank" href="mailto:lou.duquenoy@gmail.com">
-                <div className={styles.contactIcons}>
-                  <SiGmail />
-                </div>
-                <div>
-                  <p>lou.duquenoy@gmail.com</p>
-                </div>
-              </a>
-
-              <a target="_blank" href="https://github.com/Lou-Duquenoy">
-                <div className={styles.contactIcons}>
-                  <SiGithub />
-                </div>
-                <div>
-                  <p>lou-duquenoy</p>
-                </div>
-              </a>
-
-              <a
-                target="_blank"
-                href="https://www.linkedin.com/in/lou-duquenoy-0b68a3168/"
-              >
-                <div className={styles.contactIcons}>
-                  <SiLinkedin />
-                </div>
-                <div>
-                  <p>Lou Duquenoy</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        onClick={(e) => {
-          e.preventDefault();
-          handleScrollToProfile();
-        }}
-        className={styles.arrowContainerBottom}
-      >
-        <div className={styles.arrowBottom}></div>
-      </div>
-
-      <div className={styles.footer}>
-        <div className={styles.copyright}>
-          <p>© Copyright 2025 Lou Duquenoy</p>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
